@@ -1,6 +1,10 @@
-// Only client side!
+// 1 - Only client side!
 "use client"
-import { Suspense, createContext, use, useState } from "react";
+
+// 2 - New Hook use()
+import { use } from "react";
+
+import { Suspense, useState } from "react";
 import { Button } from "./components/Button";
 import { NextContext, contextData } from "./NextContext";
 
@@ -13,14 +17,14 @@ function Use() {
   const [isToggled, setIsToggled] = useState(false);
   let renderData = [];
 
-  // Use can be inside for loops and if statements!!!
+  // 3 - Use can be inside for loops and if statements!!!
   if(!isToggled) {
     // Can be used with context!
     const { data } = use(NextContext);
     renderData = data;
   }
   else {
-    // Can be used with async functions!
+    // 4 - Can be used with async functions!
     const { data } = use(fetchJson());
     renderData = data;
   }
@@ -41,7 +45,9 @@ function Use() {
 export default function Home() {
   return (
     <div className="font-sans min-h-screen p-8 pb-20 pt-6 gap-16 sm:p-20 flex items-center justify-center">
+      {/* 5 - It gets the closest provider avaiable for contexts */}
       <NextContext.Provider value={contextData}>
+        {/* 6 - It needs Suspense for the loading state when fetching */}
         <Suspense fallback={<p>Loading...</p>}>
           <Use />
         </Suspense>

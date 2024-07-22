@@ -1,5 +1,4 @@
 export async function GET() {
-  console.log("GET");
   delay();
   return Response.json({ data: fakeData })
 }
